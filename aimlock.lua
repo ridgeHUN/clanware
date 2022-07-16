@@ -1,8 +1,4 @@
---[[
-v1.1.17 Changes
-- Added a customizable crosshair with various options
-- Added `UseKeybind` for TriggerBot; if this is enabled, you must hold down your keybind to use triggerbot
-]]
+
 
 local VERSION = "v1.1.17"
 
@@ -28,16 +24,16 @@ if not getgenv().AimbotSettings then
 			Enabled = false,
 			MinFov = 15,
 			MaxFov = 80,
-			DynamicFov = true,
+			DynamicFov = false,
 			ShowFov = false, -- Shows Min & Max fov
 			Strength = 55, -- 1% - 100%
-			SlowSensitivity = true,
+			SlowSensitivity = false,
 			SlowFactor = 1.75, -- 1% - 10%
-			RequireMovement = true
+			RequireMovement = false
 		},
 		FovCircle = {
-			Enabled = true,
-			Dynamic = true,
+			Enabled = false,
+			Dynamic = false,
 			Radius = 100,
 			Transparency = 1,
 			Color = Color3.fromRGB(255,255,255),
@@ -46,7 +42,7 @@ if not getgenv().AimbotSettings then
 		TriggerBot = {
 			Enabled = false,
 			Delay = 60, -- how long it waits before clicking (milliseconds)
-			Spam = true, -- for semi-auto weapons
+			Spam = false, -- for semi-auto weapons
 			ClicksPerSecond = 10, -- set this to 0 to get anything higher than 37 cps
 			UseKeybind = false, -- if enabled, your keybind must be held to use trigger bot
 		},
