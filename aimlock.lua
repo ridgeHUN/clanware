@@ -1,4 +1,8 @@
-
+--[[
+v1.1.17 Changes
+- Added a customizable crosshair with various options
+- Added `UseKeybind` for TriggerBot; if this is enabled, you must hold down your keybind to use triggerbot
+]]
 
 local VERSION = "v1.1.17"
 
@@ -58,7 +62,7 @@ if not getgenv().AimbotSettings then
 		},
 		Priority = {},
 		Whitelisted = {}, -- Username or User ID
-		WhitelistFriends = true, -- Automatically adds friends to the whitelist
+		WhitelistFriends = false, -- Automatically adds friends to the whitelist
 		Ignore = {} -- Raycast Ignore
 	}
 end
