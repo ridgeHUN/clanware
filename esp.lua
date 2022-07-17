@@ -58,7 +58,7 @@ if not EspSettings then
 			Color = Color3.fromRGB(255,255,255),
 			UseTeamColor = false,
 			RainbowColor = false,
-			Outline = tfalseue,
+			Outline = false,
 			OutlineColor = Color3.fromRGB(0,0,0),
 			OutlineThickness = 3,
 			Thickness = 1
