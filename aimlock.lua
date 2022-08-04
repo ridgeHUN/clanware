@@ -22,6 +22,8 @@ if not getgenv().AimbotSettings then
 			TargetPart = "Head",
 			Use_mousemoverel = true,
 			Strength = 100, -- 1% - 200%
+			MouseX = 0,
+			MouseY = 0,
 			AimType = "Hold", -- "Hold" or "Toggle"
 		},
 		AimAssist = {
@@ -232,7 +234,7 @@ function ClosestPlayer()
 			local cf = GetChar(v):GetPivot()
 			local vector, inViewport = WorldToViewportPoint(camera, cf.Position)
 			if inViewport then
-				local mag = (Vector2new(mouse.X, mouse.Y) - Vector2new(vector.X, vector.Y)).Magnitude
+				local mag = (Vector2new(Aimbot.MouseX, Aimbot.MouseY) - Vector2new(vector.X, vector.Y)).Magnitude
 				local team = GetTeam(v)
 				if mag < closest and ((team ~= nil and team ~= myteam) or team == nil or not ss.TeamCheck) then
 					plr = v
@@ -306,7 +308,7 @@ function InFov(plr,Fov)
 				for _,v in next, char:GetChildren() do
 					if table.find(bodyparts, v.Name) and v.ClassName:find("Part") then
 						local vector2, inViewport2 = WorldToViewportPoint(camera, v.Position)
-						if inViewport2 and (Vector2new(mouse.X, mouse.Y) - Vector2new(vector2.X, vector2.Y)).Magnitude <= (Fov or fov.Radius or FovCircle.Radius) then
+						if inViewport2 and (Vector2new(Aimbot.MouseX, Aimbot.MouseY) - Vector2new(vector2.X, vector2.Y)).Magnitude <= (Fov or fov.Radius or FovCircle.Radius) then
 							return true
 						end
 					end
@@ -334,7 +336,7 @@ do -- compatibility
 			return nil
 		end
 	end
-	
+
 	if ts then -- bad business
 		hookfunction(PluginManager, error)
 		IsAlive = function(plr)
@@ -460,7 +462,7 @@ do
 	end
 	fov1.Color = fromRGB(255,0,0)
 	fov2.Color = fromRGB(0, 0, 255)
-	
+
 	for _,v in next, {label1,label2} do
 		v.Visible = false
 		v.Transparency = 1
@@ -572,7 +574,7 @@ function update()
 						local vector = WorldToViewportPoint(camera, target.Position)
 						if Aimbot.Use_mousemoverel then
 							str /= 100
-							mousemoverel((vector.X - mouse.X) * str, (vector.Y - mouse.Y) * str)
+							mousemoverel((vector.X - Aimbot.MouseX) * str, (vector.Y - Aimbot.MouseY) * str)
 						else
 							camera.CFrame = CFramenew(ccf.Position, char[target.Name].Position)
 						end
@@ -593,21 +595,21 @@ function update()
 							if (mouse - Vector2new(head.X, head.Y)).Magnitude < (mouse - Vector2new(body.X, body.Y)).Magnitude then
 								vector = head
 							end
-		
+
 							-- distance based strength
 							local mag = (ccf.Position - char[rootpart].Position).Magnitude
 							local mult = (mag <= 20 and 2) or (mag <= 40 and 1.4) or 1
-		
+
 							if ads then
 								mult /= 1.8
 							end
 							if AimAssist.SlowSensitivity then
 								mult *= factor
 							end
-		
+
 							str *= mult
 							str /= 1000
-							mousemoverel((vector.X - mouse.X) * str, (vector.Y - mouse.Y) * str * 1.2)
+							mousemoverel((vector.X - Aimbot.MouseX) * str, (vector.Y - Aimbot.MouseY) * str * 1.2)
 						end
 					elseif assist and not inmaxfov then
 						uis.MouseDeltaSensitivity = olddelta
@@ -633,7 +635,7 @@ function update()
 						cps = 0
 					end
 					local waitamount = cps == 0 and 0 or 1 / cps
-					
+
 					if (usebind and ads or not usebind) then
 						mouse1press()
 					end
