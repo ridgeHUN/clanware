@@ -375,8 +375,8 @@ local function AimAt(Hitbox,Config)
     and Hitbox[3].Position + PredictionVelocity or Hitbox[3].Position)
     
     mousemoverel(
-        (HitboxOnScreen.X - Mouse.X) * Config.Sensitivity,
-        (HitboxOnScreen.Y - Mouse.Y) * Config.Sensitivity
+        (Mouse.X) * Config.Sensitivity,
+        (Mouse.Y) * Config.Sensitivity
     )
 end
 
