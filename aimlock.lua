@@ -573,7 +573,7 @@ function update()
 						local vector = WorldToViewportPoint(camera, target.Position)
 						if Aimbot.Use_mousemoverel then
 							str /= 100
-							mousemoverel((vector.X + ss.Offset[1] - mouse.X) * str, (vector.Y + ss.Offset[2] - mouse.Y) * str)
+							mousemoverel((ss.Offset[1] - mouse.X) * str, (ss.Offset[2] - mouse.Y) * str)
 						else
 							camera.CFrame = CFramenew(ccf.Position, char[target.Name].Position)
 						end
@@ -608,7 +608,7 @@ function update()
 
 							str *= mult
 							str /= 1000
-							mousemoverel((vector.X + ss.Offset[1] - mouse.X) * str, (vector.Y  + ss.Offset[2] - mouse.Y) * str * 1.2)
+							mousemoverel((ss.Offset[1] - mouse.X) * str, (ss.Offset[2] - mouse.Y) * str * 1.2)
 						end
 					elseif assist and not inmaxfov then
 						uis.MouseDeltaSensitivity = olddelta
