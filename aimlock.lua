@@ -17,11 +17,10 @@ if not getgenv().AimbotSettings then
 		ToggleKey = "Insert",
 		MaximumDistance = 300, -- Set this to something lower if you dont wanna lock on some random person across the map
 		AlwaysActive = false,
-		Offset = {0, 0},
 		Aimbot = {
 			Enabled = false,
 			TargetPart = "Head",
-			Use_mousemoverel = true,
+			Use_mousemoverel = false,
 			Strength = 100, -- 1% - 200%
 			AimType = "Hold", -- "Hold" or "Toggle"
 		},
