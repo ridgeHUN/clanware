@@ -249,7 +249,7 @@ params.FilterType = Enum.RaycastFilterType.Blacklist
 params.IgnoreWater = true
 function IsVisible(plr, character, mycharacter, cf, targetpos, valid)
 	local char = character or GetChar(plr)
-	if ss.VisibleCheck and (valid or IsAlive(plr) and FindFirstChild(char, Aimbot.TargetPart) and not char.Torso.Transparency == 1 ) then
+	if ss.VisibleCheck and (valid or IsAlive(plr) and FindFirstChild(char, Aimbot.TargetPart) and not Aimbot.TargetPart.Transparency == 1 ) then
 		if getvis then
 			return getvis(player,plr)
 		else
