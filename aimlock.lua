@@ -249,7 +249,7 @@ params.FilterType = Enum.RaycastFilterType.Blacklist
 params.IgnoreWater = true
 function IsVisible(plr, character, mycharacter, cf, targetpos, valid)
 	local char = character or GetChar(plr)
-	if ss.VisibleCheck and (valid or IsAlive(plr) and FindFirstChild(char, Aimbot.TargetPart) and not Aimbot.TargetPart.Transparency == 1 ) then
+	if ss.VisibleCheck and (valid or IsAlive(plr) and FindFirstChild(char, Aimbot.TargetPart)) then
 		if getvis then
 			return getvis(player,plr)
 		else
@@ -334,7 +334,7 @@ do -- compatibility
 			return nil
 		end
 	end
-
+	
 	if ts then -- bad business
 		hookfunction(PluginManager, error)
 		IsAlive = function(plr)
@@ -460,7 +460,7 @@ do
 	end
 	fov1.Color = fromRGB(255,0,0)
 	fov2.Color = fromRGB(0, 0, 255)
-
+	
 	for _,v in next, {label1,label2} do
 		v.Visible = false
 		v.Transparency = 1
@@ -593,18 +593,18 @@ function update()
 							if (mouse - Vector2new(head.X, head.Y)).Magnitude < (mouse - Vector2new(body.X, body.Y)).Magnitude then
 								vector = head
 							end
-
+		
 							-- distance based strength
 							local mag = (ccf.Position - char[rootpart].Position).Magnitude
 							local mult = (mag <= 20 and 2) or (mag <= 40 and 1.4) or 1
-
+		
 							if ads then
 								mult /= 1.8
 							end
 							if AimAssist.SlowSensitivity then
 								mult *= factor
 							end
-
+		
 							str *= mult
 							str /= 1000
 							mousemoverel((vector.X - mouse.X) * str, (vector.Y - mouse.Y) * str * 1.2)
@@ -633,7 +633,7 @@ function update()
 						cps = 0
 					end
 					local waitamount = cps == 0 and 0 or 1 / cps
-
+					
 					if (usebind and ads or not usebind) then
 						mouse1press()
 					end
