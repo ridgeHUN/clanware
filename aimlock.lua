@@ -62,6 +62,7 @@ if not getgenv().AimbotSettings then
 		},
 		Priority = {},
 		Whitelisted = {}, -- Username or User ID
+		WhitelistedTeam = {}, -- Team Name
 		WhitelistFriends = false, -- Automatically adds friends to the whitelist
 		Ignore = {} -- Raycast Ignore
 	}
@@ -334,7 +335,7 @@ do -- compatibility
 			return nil
 		end
 	end
-	
+
 	if ts then -- bad business
 		hookfunction(PluginManager, error)
 		IsAlive = function(plr)
@@ -401,6 +402,13 @@ function IsWhitelisted(plr)
 	return false
 end
 
+function IsWhitelistedTeam(plr)
+	if table.find(ss.WhitelistedTeam, (plr.Team)) then
+		return true
+	end
+	return false
+end
+
 local uit = Enum.UserInputType
 local kc = Enum.KeyCode
 local mb1 = uit.MouseButton1
@@ -460,7 +468,7 @@ do
 	end
 	fov1.Color = fromRGB(255,0,0)
 	fov2.Color = fromRGB(0, 0, 255)
-	
+
 	for _,v in next, {label1,label2} do
 		v.Visible = false
 		v.Transparency = 1
@@ -557,7 +565,7 @@ function update()
 		local dist = (ccf.Position - cf.Position).Magnitude
 
 		if (ads or ss.AlwaysActive) and dist <= ss.MaximumDistance then
-			if IsVisible(plr) and not IsWhitelisted(plr) then
+			if IsVisible(plr) and not IsWhitelisted(plr) and not IsWhitelistedTeam(plr) then
 				local str = mathclamp(s.Strength, 1, (bot and 200) or (assist and 100))
 				if getchar then
 					str = mathclamp(str, 1, 65)
@@ -593,18 +601,18 @@ function update()
 							if (mouse - Vector2new(head.X, head.Y)).Magnitude < (mouse - Vector2new(body.X, body.Y)).Magnitude then
 								vector = head
 							end
-		
+
 							-- distance based strength
 							local mag = (ccf.Position - char[rootpart].Position).Magnitude
 							local mult = (mag <= 20 and 2) or (mag <= 40 and 1.4) or 1
-		
+
 							if ads then
 								mult /= 1.8
 							end
 							if AimAssist.SlowSensitivity then
 								mult *= factor
 							end
-		
+
 							str *= mult
 							str /= 1000
 							mousemoverel((vector.X - mouse.X) * str, (vector.Y - mouse.Y) * str * 1.2)
@@ -633,7 +641,7 @@ function update()
 						cps = 0
 					end
 					local waitamount = cps == 0 and 0 or 1 / cps
-					
+
 					if (usebind and ads or not usebind) then
 						mouse1press()
 					end
@@ -718,7 +726,7 @@ function ValidOption(type,option)
 end
 function aimbot:Toggle(type)
 	assert(ValidType(type),"Universal Aimbot: bad argument to #1 'Toggle' (Invalid Type)")
-	if type == ("Whitelisted" or "Ignore") then
+	if type == ("Whitelisted" or "WhitelistedTeam" or "Ignore") then
 		ss[type] = not ss[type]
 	else
 		ss[type].Enabled = not ss[type].Enabled
