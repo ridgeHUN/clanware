@@ -122,7 +122,7 @@ if GameId == (111958650 or 115797356 or 147332621) then -- arsenal, counter blox
 	ss.Ignore = {workspace.Ray_Ignore}
 elseif GameId == 833423526 then -- strucid
 	ss.Ignore = {workspace.IgnoreThese}
-elseif GameId == 1168263273 then -- bad business
+elseif GameId == 10491117523 then -- bad business
 	do end
 elseif GameId == 2162282815 then -- rush point
 	ss.Ignore = {camera, player.Character, workspace.RaycastIgnore, workspace.DroppedWeapons, workspace.MapFolder.Map.Ramps, workspace.MapFolder.Map.Walls.MapWalls}
